@@ -1,3 +1,15 @@
+using Serilog;
+Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.Seq("http://localhost:5341")
+            .CreateLogger();
+
+Log.Information("Hello, {Name}!", Environment.UserName);
+
+// Important to call at exit so that batched events are flushed.
+Log.CloseAndFlush();
+
+Console.ReadKey(true);
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
