@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using VRM.BLL.Services;
 using VRM.Presentation.Models;
 
 namespace VRM.Presentation.Controllers
@@ -7,10 +8,12 @@ namespace VRM.Presentation.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        public Service1 _s;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, Service1 s)
         {
             _logger = logger;
+            _s = s;
         }
 
         public IActionResult Index()

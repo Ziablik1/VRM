@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-namespace VRM.BLL 
+namespace VRM.DAL.Repos 
 { 
     public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {

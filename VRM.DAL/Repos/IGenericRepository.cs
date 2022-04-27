@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VRM.BLL
+namespace VRM.DAL.Repos
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
