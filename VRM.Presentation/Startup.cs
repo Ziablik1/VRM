@@ -27,7 +27,7 @@ namespace VRM.Presentation
         {
             services.AddControllersWithViews();
 
-            services.AddSingleton(new Service1());
+            //services.AddSingleton(new Service1());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -14,5 +14,6 @@ namespace VRM.DAL.Repos
         IEnumerable<TEntity> Get(Func<TEntity, bool> predicate);
         void Remove(TEntity item);
         void Update(TEntity item);
+        void Save();
     }
 }

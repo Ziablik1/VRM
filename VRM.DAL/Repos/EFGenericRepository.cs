@@ -68,5 +68,10 @@ namespace VRM.DAL.Repos
             return includeProperties
                 .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
         }
+
+        public virtual void Save()
+        {
+            _context.SaveChanges();
+        }
     }
 }
