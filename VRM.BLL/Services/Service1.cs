@@ -13,15 +13,5 @@ namespace VRM.BLL.Services
 {
     public static class Service1
     {
-        public static void AddRepositories(this IServiceCollection services)
-        {
-            services.AddScoped(typeof(IGenericRepository<>), typeof(EFGenericRepository<>));
-        }
-
-        public static void AddContext(this IServiceCollection services, IConfiguration configuration)
-        {
-            var connection = configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<VRMContext>(options => options.UseSqlServer(connection));
-        }
     }
 }

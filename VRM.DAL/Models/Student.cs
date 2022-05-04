@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace VRM.DAL.Models
 {
@@ -10,7 +12,7 @@ namespace VRM.DAL.Models
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("Student")]
-    public partial class Student
+    public partial class Student: IdentityUser
     {
         [Column(Order = 0)]
         [StringLength(50)]

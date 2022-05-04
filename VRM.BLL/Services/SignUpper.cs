@@ -13,13 +13,14 @@ namespace VRM.BLL.Services
 {
     public class SignUpper
     {
-        public void AddNewUser(string username, string email, string password, int id)
+        public void AddNewUser(string username, string email, string password)
         {
             DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder(); 
             optionsBuilder.UseSqlServer(@"Server = (localdb)\\mssqllocaldb; Database = VRMDB; Trusted_Connection = True; MultipleActiveResultSets = true");
             var context = new VRMContext((DbContextOptions<VRMContext>)optionsBuilder.Options);
             var repo = new EFGenericRepository<Student>(context);
-            //repo.Create();
+            Student s = new Student { Username = username, Email = email, Password = password};
+            repo.Create(s);
         }
     }
 }

@@ -12,9 +12,13 @@ namespace VRM.Presentation.Controllers
         }
 
         [HttpPost]
-        public void SignUp()
+        public ActionResult SignUp()
         {
-            _su.AddNewUser();
+            var u = Request.Form["usrnm"];
+            var ml = Request.Form["email"];
+            var p = Request.Form["psw"];
+            _su.AddNewUser(u,ml,p);
+            return View();
         }
     }
 }
