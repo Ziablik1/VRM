@@ -8,9 +8,11 @@ namespace VRM.DAL.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Identity;
 
     [Table("Teacher")]
-    public partial class Teacher
+    public partial class Teacher: IdentityUser
     {
         [Required]
         [StringLength(50)]

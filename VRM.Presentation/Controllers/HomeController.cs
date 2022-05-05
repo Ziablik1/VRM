@@ -13,7 +13,24 @@ namespace VRM.Presentation.Controllers
         {
             _logger = logger;
         }
+        public async Task<string> AddUser()
+        {
+            //ApplicationUser user;
+            //ApplicationUserStore Store = new ApplicationUserStore(new ApplicationDbContext());
+            //ApplicationUserManager userManager = new ApplicationUserManager(Store);
+            //user = new ApplicationUser
+            //{
+            //    UserName = "TestUser",
+            //    Email = "TestUser@test.com"
+            //};
 
+            //var result = await userManager.CreateAsync(user);
+            //if (!result.Succeeded)
+            //{
+            //    return result.Errors.First();
+            //}
+            //return "User Added";
+        }
         public IActionResult Index()
         {
             return View();

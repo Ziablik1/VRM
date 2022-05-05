@@ -7,10 +7,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using VRM.DAL.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace VRM.DAL.Data
 {
-    public partial class VRMContext : DbContext
+    public partial class VRMContext : IdentityDbContext
     {
         public VRMContext(DbContextOptions<VRMContext> options)
             : base(options)
