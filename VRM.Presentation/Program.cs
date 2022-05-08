@@ -17,15 +17,22 @@ using VRM.BLL;
 using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<VRMContext>(options =>
     options.UseSqlServer(connectionString));
+
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<VRMContext>();
+builder.Services.AddIdentity<User, AppRole>()
+             .AddEntityFrameworkStores<VRMContext>()
+             .AddDefaultTokenProviders();
+builder.Services.AddMvc();
 builder.Services.AddVRMBLL();
 builder.Services.AddVRMDAL(builder.Configuration);
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(Program)));
@@ -43,6 +50,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseAuthentication();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

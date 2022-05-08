@@ -8,41 +8,41 @@ namespace VRM.DAL.Repos
     public class AccountRepository : IUserRepository
     {
         private readonly VRMContext _context;
-        private readonly DbSet<User> table;
+        private readonly DbSet<User> _set;
 
         public AccountRepository(VRMContext context)
         {
             _context = context;
-            table = _context.Set<User>();
+            _set = _context.Set<User>();
         }
 
         public async Task<IEnumerable<User>> GetAll()
         {
-            return await table.ToListAsync();
+            return await _set.ToListAsync();
         }
 
         public User GetById(string id)
         {
-            return table.Find(id);
+            return _set.Find(id);
         }
 
         public void Add(User obj)
         {
-            table.Add(obj);
+            _set.Add(obj);
             _context.SaveChanges();
         }
 
         public void Update(User obj)
         {
-            table.Attach(obj);
+            _set.Attach(obj);
             _context.Entry(obj).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
         public void Delete(string id)
         {
-            User existing = table.Find(id);
-            table.Remove(existing);
+            User existing = _set.Find(id);
+            _set.Remove(existing);
             _context.SaveChanges();
         }
 

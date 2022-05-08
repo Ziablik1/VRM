@@ -5,14 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using VRM.DAL.Data;
 
 namespace VRM.DAL.Models
 {
-    public class ApplicationUserStore : UserStore<User>
+    public class AppRole : IdentityRole
     {
-        public ApplicationUserStore(VRMContext context) : base(context)
-        {
-        }
+        public string Description { get; set; }
     }
 }
