@@ -30,5 +30,6 @@ namespace VRM.DAL.Models
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int TeacherId { get; set; }
+        public ICollection<Test> Tests { get; set; }
     }
 }

@@ -27,5 +27,7 @@ namespace VRM.DAL.Models
         public Teacher Teacher { get; set; }
 
         public ICollection<Question> Questions { get; set; }
+
+        public ICollection<Student> Students { get; set; }
     }
 }

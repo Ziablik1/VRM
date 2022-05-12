@@ -28,5 +28,83 @@ namespace VRM.DAL.Data
         public DbSet<TQ> tqs { get; set; }
         public DbSet<TS> tss { get; set; }
         public DbSet<QA> qas { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Teacher>().HasData(
+            new Teacher[]
+                {
+                    new Teacher
+                    {
+                        TeacherId = 1,
+                        AdminId = 1,
+                        Email = "teacher1@gmail.com",
+                        Username = "Techer1",
+                        Password = "123"
+                    },
+                }) ;
+            modelBuilder.Entity<Student>().HasData(
+            new Student[]
+                {
+                    new Student
+                    {
+                        StudentId = 1,
+                        Email = "stud1@gmail.com",
+                        Password = "123",
+                        Username = "Student1"
+                    },
+                });
+            modelBuilder.Entity<Admin>().HasData(
+            new Admin[]
+                {
+                    new Admin
+                    {
+                        AdminId = 1,
+                        Email = "adm1@gmail.com",
+                        Password = "admin",
+                        Username = "Admin"
+                    },
+                });
+            modelBuilder.Entity<Test>().HasData(
+            new Test[]
+                {
+                    new Test
+                    {
+                        TestId = 1,
+                        Time = 15,
+                        Title = "Test1",
+                        Date = DateTime.Parse("06/06/2022")
+                    },
+                });
+            modelBuilder.Entity<Question>().HasData(
+            new Question[]
+                {
+                    new Question
+                    {
+                        QuestionId = 1,
+                        Question1 = "What is your name?"
+                    },
+                });
+            modelBuilder.Entity<Answer>().HasData(
+            new Answer[]
+                {
+                    new Answer
+                    {
+                        AnswerId = 1, Answer1 = "Dunno"
+                    },
+                });
+
+            modelBuilder.Entity<Test>()
+            .HasMany(p => p.Questions);
+
+            modelBuilder.Entity<Test>()
+            .HasMany(p => p.Students);
+
+            modelBuilder.Entity<Teacher>()
+            .HasMany(p => p.Tests);
+
+            modelBuilder.Entity<Question>()
+            .HasMany(p => p.Answers);
+
+            base.OnModelCreating(modelBuilder);
     }
 }

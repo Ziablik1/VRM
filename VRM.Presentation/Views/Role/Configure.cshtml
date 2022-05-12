@@ -26,9 +26,9 @@
                                 @Html.DisplayFor(r => role.RoleName)
                             </td>
                             <td>
-                                <div class="btn-group-vertical w-100">
-                                    <a class="btn" asp-controller="Role" asp-action="CreateOrEdit" asp-route-Id="@role.Id"><i class="fa fa-edit"></i><br>Редагувати</a>
-                                    <a class="btn" asp-controller="Role" asp-action="Delete" asp-route-Id="@role.Id"><i class="fa fa-trash"></i><br>Видалити</a>
+                                <div>
+                                    <a asp-controller="Role" asp-action="CreateOrEdit" asp-route-Id="@role.Id"><br>Редагувати</a>
+                                    <a asp-controller="Role" asp-action="Delete" asp-route-Id="@role.Id"><br>Видалити</a>
                                 </div>
                             </td>
                         </tr>
