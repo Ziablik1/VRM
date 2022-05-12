@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<AppRoleListViewModel>
   
 @{
-    ViewData["Title"] = "Ролі";
+    ViewData["Title"] = "Roles";
 }
 
 <div class="card shadow mb-4">
@@ -14,7 +14,7 @@
                             @Html.DisplayNameFor(model => model.RoleName)
                         </th>
                         <th class="dontNeedFilter">
-                            Дії
+                            Actions
                         </th>
                     </tr>
                 </thead>
@@ -27,8 +27,8 @@
                             </td>
                             <td>
                                 <div>
-                                    <a asp-controller="Role" asp-action="CreateOrEdit" asp-route-Id="@role.Id"><br>Редагувати</a>
-                                    <a asp-controller="Role" asp-action="Delete" asp-route-Id="@role.Id"><br>Видалити</a>
+                                    <a asp-controller="Role" asp-action="CreateOrEdit" asp-route-Id="@role.Id"><br>Edit</a>
+                                    <a asp-controller="Role" asp-action="Delete" asp-route-Id="@role.Id"><br>Delete</a>
                                 </div>
                             </td>
                         </tr>

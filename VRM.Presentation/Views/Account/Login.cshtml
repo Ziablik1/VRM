@@ -1,0 +1,46 @@
+﻿@model LoginViewModel
+@using VRM.Presentation.Models
+
+@{
+    ViewData["Title"] = "Log In";
+}
+
+<!-- Outer Row -->
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <form asp-controller="Account" asp-action="Login" method="post" class="user">
+                                <div class="form-group">
+                                    <input type="email" asp-for="UserName" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp"
+                                           placeholder="Email" />
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="password" asp-for="Password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox small">
+                                        <label asp-for="RememberMe">
+                                            <input asp-for="RememberMe" />
+                                            @Html.DisplayNameFor(m => m.RememberMe)
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-user btn-block">Enter</button>
+
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

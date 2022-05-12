@@ -1,13 +1,18 @@
 ﻿@model UserViewModel
 
 @{
-    ViewData["Title"] = "Створити користувача";
+    ViewData["Title"] = "New User";
 }
 
 <form method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="row">
         <div class="col-lg-6">
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
@@ -23,18 +28,11 @@
                 <input asp-for="ConfirmPassword" class="form-control" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ApplicationRoleId" class="control-label"></label>
-                <select asp-for="ApplicationRoleId" asp-items="@Model.ApplicationRoles" class="form-control">
-                    @*<option>Оберіть роль</option>*@
-                </select>
-                <span asp-validation-for="ApplicationRoleId" class="text-danger"></span>
-            </div>
         </div>
 
         <div class="form-group">
-            <input type="submit" value="Зберегти" class="btn btn-primary" />
-            <button asp-controller="User" asp-action="Configure" class="btn btn-secondary">Скасувати</button>
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <button asp-controller="User" asp-action="Index" class="btn btn-secondary">Cancel</button>
         </div>
     </div>
 </form>
