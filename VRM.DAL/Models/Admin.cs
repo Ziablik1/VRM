@@ -12,7 +12,7 @@ namespace VRM.DAL.Models
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("Admin")]
-    public partial class Admin: IdentityUser
+    public partial class Admin
     {
         [Required]
         [StringLength(50)]

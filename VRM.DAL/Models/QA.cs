@@ -13,13 +13,16 @@ namespace VRM.DAL.Models
     public partial class QA
     {
         [Key]
+        public int ID { get; set; }
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int AnswerId { get; set; }
 
-        [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int QuestionId { get; set; }
+
+        public Question Question { get; set; }
+        public Answer Answer { get; set; }
     }
 }

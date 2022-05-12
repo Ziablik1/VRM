@@ -12,7 +12,7 @@ namespace VRM.DAL.Models
     using Microsoft.AspNetCore.Identity;
 
     [Table("Teacher")]
-    public partial class Teacher: IdentityUser
+    public partial class Teacher
     {
         [Required]
         [StringLength(50)]

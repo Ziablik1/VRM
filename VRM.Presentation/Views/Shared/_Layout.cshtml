@@ -1,4 +1,4 @@
-﻿@*<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,6 +25,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Configure">Roles</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -46,9 +49,9 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
-</html>*@
+</html>
 
-<!DOCTYPE html>
+@*<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -86,4 +89,4 @@
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 </body>
-</html>
+</html>*@

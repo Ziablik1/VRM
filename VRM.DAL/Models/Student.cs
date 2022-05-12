@@ -12,7 +12,7 @@ namespace VRM.DAL.Models
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("Student")]
-    public partial class Student: IdentityUser
+    public partial class Student
     {
         [Column(Order = 0)]
         [StringLength(50)]

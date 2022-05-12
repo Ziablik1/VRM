@@ -19,5 +19,6 @@ namespace VRM.DAL.Models
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int QuestionId { get; set; }
+        public ICollection<Answer> Answers { get; set; } 
     }
 }

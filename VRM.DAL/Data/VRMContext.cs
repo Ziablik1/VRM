@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace VRM.DAL.Data
 {
-    public partial class VRMContext : IdentityDbContext
+    public partial class VRMContext : IdentityDbContext<User, AppRole, string>
     {
         public VRMContext(DbContextOptions<VRMContext> options)
             : base(options)
@@ -19,14 +19,14 @@ namespace VRM.DAL.Data
             //Database.EnsureCreated();
         }
 
-        public virtual DbSet<Admin> Admin { get; set; }
-        public virtual DbSet<Answer> Answer { get; set; }
-        public virtual DbSet<Question> Question { get; set; }
-        public virtual DbSet<Teacher> Teacher { get; set; }
-        public virtual DbSet<Test> Test { get; set; }
-        public virtual DbSet<QA> QA { get; set; }
-        public virtual DbSet<Student> Student { get; set; }
-        public virtual DbSet<TQ> TQ { get; set; }
-        public virtual DbSet<TS> TS { get; set; }
+        public DbSet<Admin> Admin { get; set; }
+        public DbSet<Answer> Answer { get; set; }
+        public DbSet<Question> Question { get; set; }
+        public DbSet<Teacher> Teacher { get; set; }
+        public DbSet<Test> Test { get; set; }
+        public DbSet<Student> Student { get; set; }
+        public DbSet<TQ> tqs { get; set; }
+        public DbSet<TS> tss { get; set; }
+        public DbSet<QA> qas { get; set; }
     }
 }

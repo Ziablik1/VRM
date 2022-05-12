@@ -29,7 +29,7 @@ namespace VRM.Presentation.Controllers
             //{
             //    return result.Errors.First();
             //}
-            //return "User Added";
+            return "User Added";
         }
         public IActionResult Index()
         {
