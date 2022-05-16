@@ -1,36 +1,34 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
 using VRM.BLL.Services;
+using VRM.DAL.Models;
 using VRM.Presentation.Models;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace VRM.Presentation.Controllers
 {
+    //[Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly UserManager<User> userManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(UserManager<User> userManager)
         {
-            _logger = logger;
+            this.userManager = userManager;
         }
-        public async Task<string> AddUser()
-        {
-            //ApplicationUser user;
-            //ApplicationUserStore Store = new ApplicationUserStore(new ApplicationDbContext());
-            //ApplicationUserManager userManager = new ApplicationUserManager(Store);
-            //user = new ApplicationUser
-            //{
-            //    UserName = "TestUser",
-            //    Email = "TestUser@test.com"
-            //};
-
-            //var result = await userManager.CreateAsync(user);
-            //if (!result.Succeeded)
-            //{
-            //    return result.Errors.First();
-            //}
-            return "User Added";
-        }
+        //[Authorize(Roles = "User")]
+        //public IActionResult Index()
+        //{
+        //    string userName = userManager.GetUserName(User);
+        //    return View("Index", userName);
+        //}
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
         public IActionResult Index()
         {
             return View();

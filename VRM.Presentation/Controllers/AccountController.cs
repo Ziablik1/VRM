@@ -15,7 +15,6 @@ namespace VRM.Presentation.Controllers
         {
             this.signInManager = signInManager;
         }
-
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
@@ -41,15 +40,6 @@ namespace VRM.Presentation.Controllers
 
             return View(model);
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignOff()
-        {
-            await signInManager.SignOutAsync();
-            return RedirectToAction("Login");
-        }
-
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -61,12 +51,19 @@ namespace VRM.Presentation.Controllers
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
         }
+        //    [HttpPost]
+        //    [ValidateAntiForgeryToken]
+        //    public async Task<IActionResult> SignOff()
+        //    {
+        //        await signInManager.SignOutAsync();
+        //        return RedirectToAction("Login");
+        //    }
 
-        [HttpGet]
-        public IActionResult AccessDenied(string returnUrl = null)
-        {
-            ViewData["ReturnUrl"] = returnUrl;
-            return View();
-        }
+        //    [HttpGet]
+        //    public IActionResult AccessDenied(string returnUrl = null)
+        //    {
+        //        ViewData["ReturnUrl"] = returnUrl;
+        //        return View();
+        //}
     }
 }

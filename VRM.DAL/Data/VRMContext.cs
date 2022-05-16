@@ -28,6 +28,8 @@ namespace VRM.DAL.Data
         public DbSet<TQ> tqs { get; set; }
         public DbSet<TS> tss { get; set; }
         public DbSet<QA> qas { get; set; }
+        public DbSet<AppRole> Roles { get; set; }
+        public DbSet<User> Users { get; set; }
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
         //    modelBuilder.Entity<Teacher>().HasData(

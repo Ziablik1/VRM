@@ -1,72 +1,48 @@
-﻿@model IEnumerable<UserViewModel>
-
-@{
-    ViewData["Title"] = "Users";
-}
-
-
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" />
-
-<h1>Користувачі</h1>
-
-<p>
-    <a asp-action="Create">Create</a>
-</p>
-<table class="table" id="dataT">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-@section Scripts
-{
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
-
-    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.bootstrap4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
-
-
-    <script>
-
-        $('#dataT').dataTable({
-
-            dom: "lBfrtip",
-            buttons: [
-                'csv', 'excel'
-            ]
-        });
-
-
-
-    </script>
-}
+﻿@model IEnumerable<UserListViewModel>  
+  
+<div class="top-buffer"></div>  
+<div class="panel panel-primary">  
+    <div class="panel-heading panel-head">Users</div>  
+    <div class="panel-body">  
+        <div class="btn-group">  
+            <a id="createEditUserModal" data-toggle="modal" asp-action="AddUser" data-target="#modal-action-user" class="btn btn-primary">  
+                <i class="glyphicon glyphicon-plus"></i>  Add User  
+            </a>  
+        </div>  
+        <div class="top-buffer"></div>  
+        <table class="table table-bordered table-striped table-condensed">  
+            <thead>  
+                <tr>  
+                    <th>Name</th>  
+                    <th>Email</th>                     
+                    <th>Action</th>  
+                </tr>  
+            </thead>  
+            <tbody>  
+                @foreach (var item in Model)  
+                {  
+                    <tr>  
+                        <td>@item.Name</td>  
+                        <td>@item.Email</td>                          
+                        <td>  
+                            <a id="editUserModal" data-toggle="modal" asp-action="EditUser" asp-route-id="@item.Id" data-target="#modal-action-user"  
+                               class="btn btn-info">  
+                                <i class="glyphicon glyphicon-pencil"></i>  Edit  
+                            </a>  
+                            <a id="deleteUserModal" data-toggle="modal" asp-action="DeleteUser" asp-route-id="@item.Id" data-target="#modal-action-user" class="btn btn-danger">  
+                                <i class="glyphicon glyphicon-trash"></i>  Delete  
+                            </a>  
+                        </td>  
+                    </tr>  
+                }  
+            </tbody>  
+        </table>  
+    </div>  
+</div>  
+  
+@*@Html.Partial("_Modal", new BootstrapModel { ID = "modal-action-user", AreaLabeledId = "modal-action-user-label", Size = ModalSize.Medium })  *@
+  
+@section scripts  
+{  
+    <script src="~/js/user-index.js" asp-append-version="true"></script>  
+}   

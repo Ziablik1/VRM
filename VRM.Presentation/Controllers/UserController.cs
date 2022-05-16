@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,11 @@ using VRM.DAL.Models;
 using VRM.DAL.Data;
 using VRM.DAL.Repos;
 using VRM.Presentation.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace VRM.Presentation.Controllers
 {
+    //[Authorize(Roles = "Admin, Student, Teacher")]
     public class UserController : Controller
     {
         //private readonly IAccount _service;
@@ -33,45 +36,48 @@ namespace VRM.Presentation.Controllers
         //    _roleManager = roleManager;
         //    _signInManager = signInManager;
         //}
-            private readonly UserManager<User> userManager;
-            private readonly RoleManager<AppRole> roleManager;
+        private readonly UserManager<User> userManager;
+        private readonly RoleManager<AppRole> roleManager;
 
-            public UserController(UserManager<User> userManager, RoleManager<AppRole> roleManager)
+        public UserController(UserManager<User> userManager, RoleManager<AppRole> roleManager)
+        {
+            this.userManager = userManager;
+            this.roleManager = roleManager;
+        }
+        [HttpGet]
+        public IActionResult Index()
+        {
+            List<UserListViewModel> model = new List<UserListViewModel>();
+            model = userManager.Users.Select(u => new UserListViewModel
             {
-                this.userManager = userManager;
-                this.roleManager = roleManager;
-            }
-
-            public IActionResult Index()
+                Id = u.Id,
+                Name = u.Name,
+                Email = u.Email
+            }).ToList();
+            return View(model);
+        }
+        [HttpGet]
+        public IActionResult AddUser()
+        {
+            UserViewModel model = new UserViewModel();
+            model.ApplicationRoles = roleManager.Roles.Select(r => new SelectListItem
             {
-                List<UserListViewModel> model = new List<UserListViewModel>();
-                model = userManager.Users.Select(u => new UserListViewModel
-                {
-                    Id = u.Id,
-                    Email = u.Email
-                }).ToList();
-                return View(model);
-            }
+                Text = r.Name,
+                Value = r.Id
+            }).ToList();
+            return View(model);
+        }
 
-
-            public IActionResult Create()
-            {
-                UserViewModel model = new UserViewModel();
-                model.ApplicationRoles = roleManager.Roles.Select(r => new SelectListItem
-                {
-                    Text = r.Name,
-                    Value = r.Id
-                }).ToList();
-                return View(nameof(Create), model);
-            }
-
-            [HttpPost]
-            public async Task<IActionResult> Create(UserViewModel model)
-            {
+        [HttpPost]
+        public async Task<IActionResult> AddUser(UserViewModel model)
+        {
+            //if (ModelState.IsValid)
+            //{
                 User user = new User
                 {
-                    UserName = model.Email,
-                    Email = model.Email
+                    Name = model.Name,
+                    UserName = model.UserName,
+                    Email = model.Email,
                 };
                 IdentityResult result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -86,40 +92,43 @@ namespace VRM.Presentation.Controllers
                         }
                     }
                 }
-
-                return View(model);
-            }
-
-            [HttpGet]
-            public async Task<IActionResult> Edit(string id)
+            //}
+            return View(model);
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public async Task<IActionResult> EditUser(string id)
+        {
+            EditUserViewModel model = new EditUserViewModel();
+            model.ApplicationRoles = roleManager.Roles.Select(r => new SelectListItem
             {
-                EditUserViewModel model = new EditUserViewModel();
-                model.ApplicationRoles = roleManager.Roles.Select(r => new SelectListItem
-                {
-                    Text = r.Name,
-                    Value = r.Id
-                }).ToList();
+                Text = r.Name,
+                Value = r.Id
+            }).ToList();
 
-                if (!String.IsNullOrEmpty(id))
-                {
+            if (!String.IsNullOrEmpty(id))
+            {
                 User user = await userManager.FindByIdAsync(id);
-                    if (user != null)
-                    {
-                        model.Email = user.Email;
-                        model.ApplicationRoleId = roleManager.Roles.Single(r => r.Name == userManager.GetRolesAsync(user).Result.Single()).Id;
-                    }
-                }
-                return View(nameof(Edit), model);
-            }
-
-            [HttpPost]
-            public async Task<IActionResult> Edit(string id, EditUserViewModel model)
-            {
-            User user = await userManager.FindByIdAsync(id);
                 if (user != null)
                 {
+                    model.Name = user.Name;
+                    model.Email = user.Email;
+                    model.ApplicationRoleId = roleManager.Roles.Single(r => r.Name == userManager.GetRolesAsync(user).Result.Single()).Id;
+                }
+            }
+            return PartialView("_EditUser", model);
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<IActionResult> EditUser(string id, EditUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = await userManager.FindByIdAsync(id);
+                if (user != null)
+                {
+                    user.Name = model.Name;
                     user.Email = model.Email;
-                    user.UserName = model.Email;
                     string existingRole = userManager.GetRolesAsync(user).Result.Single();
                     string existingRoleId = roleManager.Roles.Single(r => r.Name == existingRole).Id;
                     IdentityResult result = await userManager.UpdateAsync(user);
@@ -136,53 +145,47 @@ namespace VRM.Presentation.Controllers
                                     IdentityResult newRoleResult = await userManager.AddToRoleAsync(user, applicationRole.Name);
                                     if (newRoleResult.Succeeded)
                                     {
-                                        return RedirectToAction(nameof(Index));
+                                        return RedirectToAction("Index");
                                     }
                                 }
                             }
                         }
-                        else
-                        {
-                            return RedirectToAction(nameof(Index));
-                        }
-
                     }
                 }
-                return View(nameof(Edit), model);
             }
-
-            [HttpGet]
-            public async Task<IActionResult> Delete(string id)
-            {
-                string name = string.Empty;
-                if (!String.IsNullOrEmpty(id))
-                {
-                User applicationUser = await userManager.FindByIdAsync(id);
-                    if (applicationUser != null)
-                    {
-                        name = applicationUser.Email;
-                    }
-                }
-                return View(nameof(Delete), name);
-            }
-
-            [HttpPost]
-            [ActionName("Delete")]
-            public async Task<IActionResult> DeletePOST(string id)
-            {
-                if (!String.IsNullOrEmpty(id))
-                {
-                User applicationUser = await userManager.FindByIdAsync(id);
-                    if (applicationUser != null)
-                    {
-                        IdentityResult result = await userManager.DeleteAsync(applicationUser);
-                        if (result.Succeeded)
-                        {
-                            return RedirectToAction(nameof(Index));
-                        }
-                    }
-                }
-                return View();
-            }
+            return PartialView("_EditUser", model);
         }
+        [HttpGet]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            string name = string.Empty;
+            if (!String.IsNullOrEmpty(id))
+            {
+                User applicationUser = await userManager.FindByIdAsync(id);
+                if (applicationUser != null)
+                {
+                    name = applicationUser.Name;
+                }
+            }
+            return PartialView("_DeleteUser", name);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string id, IFormCollection form)
+        {
+            if (!String.IsNullOrEmpty(id))
+            {
+                User applicationUser = await userManager.FindByIdAsync(id);
+                if (applicationUser != null)
+                {
+                    IdentityResult result = await userManager.DeleteAsync(applicationUser);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
+            return View();
+        }
+    }
 }

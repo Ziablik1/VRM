@@ -1,0 +1,58 @@
+﻿@model IEnumerable<User>
+@using VRM.DAL.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="card shadow">
+    <div class="mt-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table" id="Datatable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UserName)
+                            </th>
+                            @*<th>
+                                @Html.DisplayNameFor(model => model.)
+                            </th>*@
+                            <th class="dontNeedFilter">
+                                Дії
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                </td>
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.)
+                                </td>*@
+                                <td>
+                                    <div class="btn-group-vertical w-100">
+                                        <a class="btn btn-warning" asp-controller="Admin" asp-action="Edit" asp-route-id="@item.Id">Change Role</a>
+                                        <a class="btn btn-danger" asp-controller="Admin" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+<script src="~/lib/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script src="~/js/customDatatable.js"></script>
+}

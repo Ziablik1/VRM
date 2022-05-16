@@ -9,11 +9,9 @@
     using System.Threading.Tasks;
     public class UserListViewModel
     {
-
-        public int Id { get; set; }
-        [Display(Name = "Email")]
+        public string Id { get; set; }
+        public string Name { get; set; }
         public string Email { get; set; }
-        [Display(Name = "Role")]
         public string RoleName { get; set; }
     }
 }

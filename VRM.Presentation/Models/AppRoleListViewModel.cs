@@ -11,7 +11,6 @@ namespace VRM.Presentation.Models
     {
         public string Id { get; set; }
         public string RoleName { get; set; }
-        public string Description { get; set; }
         public int NumberOfUsers { get; set; }
     }
 }

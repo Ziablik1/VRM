@@ -10,6 +10,5 @@ namespace VRM.DAL.Models
 {
     public class AppRole : IdentityRole
     {
-        public string RoleName { get; set; }
     }
 }

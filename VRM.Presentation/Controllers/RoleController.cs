@@ -12,15 +12,15 @@ using VRM.Presentation.Models;
 namespace VRM.Presentation.Controllers
 {
     public class RoleController : Controller
-    {
-        private readonly RoleManager<AppRole> roleManager;
+    { 
+            private readonly RoleManager<AppRole> roleManager;
 
-        public RoleController(RoleManager<AppRole> roleManager)
-        {
-            this.roleManager = roleManager;
-        }
-
-        public IActionResult Configure()
+            public RoleController(RoleManager<AppRole> roleManager)
+            {
+                this.roleManager = roleManager;
+            }
+        [HttpGet]
+        public IActionResult Index()
         {
             List<AppRoleListViewModel> model = new List<AppRoleListViewModel>();
             model = roleManager.Roles.Select(r => new AppRoleListViewModel
@@ -30,8 +30,7 @@ namespace VRM.Presentation.Controllers
             }).ToList();
             return View(model);
         }
-
-        public async Task<IActionResult> Create(string id)
+        public async Task<IActionResult> CreateOrEdit(string id)
         {
             RoleViewModel model = new RoleViewModel();
             if (!String.IsNullOrEmpty(id))
@@ -61,45 +60,45 @@ namespace VRM.Presentation.Controllers
                                                 : await roleManager.CreateAsync(applicationRole);
             if (roleRuslt.Succeeded)
             {
-                return RedirectToAction(nameof(Configure));
+                return RedirectToAction(nameof(Index));
             }
 
             return View(model);
         }
-
         [HttpGet]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> AddEditApplicationRole(string id)
         {
-            string name = string.Empty;
+            RoleViewModel model = new RoleViewModel();
             if (!String.IsNullOrEmpty(id))
             {
                 AppRole applicationRole = await roleManager.FindByIdAsync(id);
                 if (applicationRole != null)
                 {
-                    name = applicationRole.Name;
+                    model.Id = applicationRole.Id;
+                    model.RoleName = applicationRole.Name;
                 }
             }
-            return View(nameof(Delete), name);
+            return PartialView("_AddEditApplicationRole", model);
         }
-
         [HttpPost]
-        [ActionName("Delete")]
-        public async Task<IActionResult> DeletePOST(string id)
+        public async Task<IActionResult> AddEditApplicationRole(string id, RoleViewModel model)
         {
-            if (!String.IsNullOrEmpty(id))
+            if (ModelState.IsValid)
             {
-                AppRole applicationRole = await roleManager.FindByIdAsync(id);
-                if (applicationRole != null)
+                bool isExist = !String.IsNullOrEmpty(id);
+                AppRole applicationRole = isExist ? await roleManager.FindByIdAsync(id) :
+               new AppRole
+               {
+               };
+                applicationRole.Name = model.RoleName;
+                IdentityResult roleRuslt = isExist ? await roleManager.UpdateAsync(applicationRole)
+                                                    : await roleManager.CreateAsync(applicationRole);
+                if (roleRuslt.Succeeded)
                 {
-                    IdentityResult roleRuslt = roleManager.DeleteAsync(applicationRole).Result;
-                    if (roleRuslt.Succeeded)
-                    {
-                        return RedirectToAction(nameof(Configure));
-                    }
+                    return RedirectToAction("Index");
                 }
             }
-
-            return View();
+            return View(model);
         }
     }
 }
