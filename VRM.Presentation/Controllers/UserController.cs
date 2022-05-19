@@ -20,7 +20,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace VRM.Presentation.Controllers
 {
-    //[Authorize(Roles = "Admin, Student, Teacher")]
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         //private readonly IAccount _service;
@@ -44,6 +44,8 @@ namespace VRM.Presentation.Controllers
             this.userManager = userManager;
             this.roleManager = roleManager;
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Index()
         {
@@ -52,11 +54,14 @@ namespace VRM.Presentation.Controllers
             {
                 Id = u.Id,
                 Name = u.Name,
+                RoleName = "Some Role",
                 Email = u.Email
             }).ToList();
             return View(model);
         }
+
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult AddUser()
         {
             UserViewModel model = new UserViewModel();
@@ -69,6 +74,7 @@ namespace VRM.Presentation.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> AddUser(UserViewModel model)
         {
             //if (ModelState.IsValid)
@@ -116,14 +122,13 @@ namespace VRM.Presentation.Controllers
                     model.ApplicationRoleId = roleManager.Roles.Single(r => r.Name == userManager.GetRolesAsync(user).Result.Single()).Id;
                 }
             }
-            return PartialView("_EditUser", model);
+            return View(model);
         }
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> EditUser(string id, EditUserViewModel model)
         {
-            if (ModelState.IsValid)
-            {
                 User user = await userManager.FindByIdAsync(id);
                 if (user != null)
                 {
@@ -145,15 +150,14 @@ namespace VRM.Presentation.Controllers
                                     IdentityResult newRoleResult = await userManager.AddToRoleAsync(user, applicationRole.Name);
                                     if (newRoleResult.Succeeded)
                                     {
-                                        return RedirectToAction("Index");
+                                        return RedirectToAction(nameof(Index));
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }
-            return PartialView("_EditUser", model);
+            return View(model);
         }
         [HttpGet]
         public async Task<IActionResult> DeleteUser(string id)

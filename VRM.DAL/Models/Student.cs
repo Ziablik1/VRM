@@ -30,5 +30,7 @@ namespace VRM.DAL.Models
         [Column(Order = 3)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StudentId { get; set; }
+        public int? TestId { get; set; }
+        public Test Test { get; set; }
     }
 }

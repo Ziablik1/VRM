@@ -1,58 +1,48 @@
-﻿@model IEnumerable<User>
-@using VRM.DAL.Models
-@using Microsoft.AspNetCore.Identity
-@inject SignInManager<User> SignInManager
-@inject UserManager<User> UserManager
-@{
-    ViewData["Title"] = "Users";
-}
-
-<div class="card shadow">
-    <div class="mt-4">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table" id="Datatable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.UserName)
-                            </th>
-                            @*<th>
-                                @Html.DisplayNameFor(model => model.)
-                            </th>*@
-                            <th class="dontNeedFilter">
-                                Дії
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UserName)
-                                </td>
-                                @*<td>
-                                    @Html.DisplayFor(modelItem => item.)
-                                </td>*@
-                                <td>
-                                    <div class="btn-group-vertical w-100">
-                                        <a class="btn btn-warning" asp-controller="Admin" asp-action="Edit" asp-route-id="@item.Id">Change Role</a>
-                                        <a class="btn btn-danger" asp-controller="Admin" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section Scripts {
-<link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
-<script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
-<script src="~/lib/datatables/js/dataTables.bootstrap4.min.js"></script>
-<script src="~/js/customDatatable.js"></script>
-}
+﻿@model IEnumerable<UserListViewModel>  
+  
+<div class="top-buffer"></div>  
+<div class="panel panel-primary">  
+    <div class="panel-heading panel-head">Users</div>  
+    <div class="panel-body">  
+        <div class="btn-group">  
+            <a id="createEditUserModal" data-toggle="modal" asp-action="AddUser" data-target="#modal-action-user" class="btn btn-primary">  
+                <i class="glyphicon glyphicon-plus"></i>  Add User  
+            </a>  
+        </div>  
+        <div class="top-buffer"></div>  
+        <table class="table table-bordered table-striped table-condensed">  
+            <thead>  
+                <tr>  
+                    <th>Name</th>  
+                    <th>Email</th>                     
+                    <th>Action</th>  
+                </tr>  
+            </thead>  
+            <tbody>  
+                @foreach (var item in Model)  
+                {  
+                    <tr>  
+                        <td>@item.Name</td>  
+                        <td>@item.Email</td>                          
+                        <td>  
+                            <a id="editUserModal" data-toggle="modal" asp-action="EditUser" asp-route-id="@item.Id" data-target="#modal-action-user"  
+                               class="btn btn-info">  
+                                <i class="glyphicon glyphicon-pencil"></i>  Edit  
+                            </a>  
+                            <a id="deleteUserModal" data-toggle="modal" asp-action="DeleteUser" asp-route-id="@item.Id" data-target="#modal-action-user" class="btn btn-danger">  
+                                <i class="glyphicon glyphicon-trash"></i>  Delete  
+                            </a>  
+                        </td>  
+                    </tr>  
+                }  
+            </tbody>  
+        </table>  
+    </div>  
+</div>  
+  
+@*@Html.Partial("_Modal", new BootstrapModel { ID = "modal-action-user", AreaLabeledId = "modal-action-user-label", Size = ModalSize.Medium })  *@
+  
+@section scripts  
+{  
+    <script src="~/js/user-index.js" asp-append-version="true"></script>  
+}   

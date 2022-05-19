@@ -23,11 +23,11 @@ namespace VRM.DAL.Models
         public DateTime Date { get; set; }
 
         public int Time { get; set; }
-
+        public int? TeachertId { get; set; }
         public Teacher Teacher { get; set; }
 
-        public ICollection<Question> Questions { get; set; }
+        public ICollection<Question> Question { get; set; }
 
-        public ICollection<Student> Students { get; set; }
+        public ICollection<Student> Student { get; set; }
     }
 }

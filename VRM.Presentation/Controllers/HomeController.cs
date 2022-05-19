@@ -9,26 +9,17 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace VRM.Presentation.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<User> userManager;
 
-        public HomeController(UserManager<User> userManager)
+        public HomeController(UserManager<User> userManager, ILogger<HomeController> logger)
         {
             this.userManager = userManager;
+            _logger = logger;
         }
-        //[Authorize(Roles = "User")]
-        //public IActionResult Index()
-        //{
-        //    string userName = userManager.GetUserName(User);
-        //    return View("Index", userName);
-        //}
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
         public IActionResult Index()
         {
             return View();

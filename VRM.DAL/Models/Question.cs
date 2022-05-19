@@ -15,10 +15,12 @@ namespace VRM.DAL.Models
         [Column("Question")]
         [Required]
         [StringLength(500)]
-        public string Question1 { get; set; }
+        public string QuestionString { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int QuestionId { get; set; }
-        public ICollection<Answer> Answers { get; set; } 
+        public ICollection<Answer> Answer { get; set; }
+        public int? TestId { get; set; }
+        public Test Test { get; set; }
     }
 }
