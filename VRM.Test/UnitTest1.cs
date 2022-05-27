@@ -50,8 +50,8 @@ namespace VRM.Test
                 RoleName = r.Name,
                 Id = r.Id,
             }).ToList();
-            
-            Assert.Equal(true, model.Contains(new AppRoleListViewModel{ RoleName = "Admin"}));
+            var matches = model.Where(p => String.Equals(p.RoleName, "Admin", StringComparison.CurrentCulture));
+            Assert.NotNull(matches);
         }
         [Fact]
         public void StudentRoleExist()
