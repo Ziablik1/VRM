@@ -23,19 +23,7 @@ namespace VRM.Presentation.Controllers
     [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
-        //private readonly IAccount _service;
-        //private readonly UserManager<User> _userManager;
-        //private readonly RoleManager<IdentityRole> _roleManager;
-        //private readonly SignInManager<User> _signInManager;
-
-
-        //public UserController(IAccount service,, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager)
-        //{
-        //    _service = service;
-        //    _userManager = userManager;
-        //    _roleManager = roleManager;
-        //    _signInManager = signInManager;
-        //}
+        
         private readonly UserManager<User> userManager;
         private readonly RoleManager<AppRole> roleManager;
 

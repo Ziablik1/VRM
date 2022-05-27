@@ -18,6 +18,7 @@ namespace VRM.BLL
         public static void AddServices(this IServiceCollection services)
         {
             services.AddScoped<IAccount, AccountService>();
+            //services.AddScoped<ITestService, TestService>();
         }
 
         public static void AddMapping(this IServiceCollection services)

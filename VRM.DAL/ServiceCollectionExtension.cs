@@ -18,6 +18,7 @@ namespace VRM.DAL
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(EFGenericRepository<>));
             services.AddScoped(typeof(IUserRepository), typeof(AccountRepository));
+            //services.AddScoped(typeof(ITestRepository), typeof(TestRepository));
         }
 
         public static void AddContext(this IServiceCollection services, IConfiguration configuration)

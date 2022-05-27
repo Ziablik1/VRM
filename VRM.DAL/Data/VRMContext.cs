@@ -44,28 +44,6 @@ namespace VRM.DAL.Data
         //                Password = "123"
         //            },
         //        });
-        //    modelBuilder.Entity<Student>().HasData(
-        //    new Student[]
-        //        {
-        //            new Student
-        //            {
-        //                StudentId = 1,
-        //                Email = "stud1@gmail.com",
-        //                Password = "123",
-        //                Username = "Student1"
-        //            },
-        //        });
-        //    modelBuilder.Entity<Admin>().HasData(
-        //    new Admin[]
-        //        {
-        //            new Admin
-        //            {
-        //                AdminId = 1,
-        //                Email = "adm1@gmail.com",
-        //                Password = "admin",
-        //                Username = "Admin"
-        //            },
-        //        });
         //    modelBuilder.Entity<Test>().HasData(
         //    new Test[]
         //        {
@@ -83,7 +61,7 @@ namespace VRM.DAL.Data
         //            new Question
         //            {
         //                QuestionId = 1,
-        //                Question1 = "What is your name?"
+        //                QuestionString = "What is your name?"
         //            },
         //        });
         //    modelBuilder.Entity<Answer>().HasData(
@@ -95,17 +73,17 @@ namespace VRM.DAL.Data
         //            },
         //        });
 
-        //    modelBuilder.Entity<Test>()
-        //    .HasMany(p => p.Questions);
+            //modelBuilder.Entity<Test>()
+            //.HasMany(p => p.Questions);
 
-        //    modelBuilder.Entity<Test>()
-        //    .HasMany(p => p.Students);
+            //modelBuilder.Entity<Test>()
+            //.HasMany(p => p.Students);
 
-        //    modelBuilder.Entity<Teacher>()
-        //    .HasMany(p => p.Tests);
+            //modelBuilder.Entity<Teacher>()
+            //.HasMany(p => p.Tests);
 
-        //    modelBuilder.Entity<Question>()
-        //    .HasMany(p => p.Answers);
+            //modelBuilder.Entity<Question>()
+            //.HasMany(p => p.Answers);
 
         //    base.OnModelCreating(modelBuilder);
         //}
