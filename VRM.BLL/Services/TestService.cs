@@ -22,10 +22,10 @@ namespace VRM.BLL.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Test>> GetAll()
+        public IEnumerable<Test> GetAll()
         {
-            var res = await _repository.GetAll();
-            return _mapper.Map<IEnumerable<Test>>(res);
+            var res = _repository.GetAll();
+            return res;
         }
 
         public Test GetById(string id)

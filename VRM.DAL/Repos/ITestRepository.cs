@@ -9,7 +9,7 @@ namespace VRM.DAL.Repos
 {
     public interface ITestRepository
     {
-        Task<IEnumerable<Test>> GetAll();
+        IEnumerable<Test> GetAll();
 
         Test GetById(string id);
 

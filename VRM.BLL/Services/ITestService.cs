@@ -11,7 +11,7 @@ namespace VRM.BLL.Services
 {
     public interface ITestService
     {
-        Task<IEnumerable<Test>> GetAll();
+        IEnumerable<Test> GetAll();
 
         Test GetById(string id);
         //public IEnumerable<Test> GetTestsByStudentId(int id);

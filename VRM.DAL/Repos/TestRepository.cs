@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 
 namespace VRM.DAL.Repos
 {
-    public class TestRepository
+    public class TestRepository: ITestRepository
     {
         private readonly VRMContext _context;
         private readonly DbSet<Test> _set;
@@ -21,9 +21,9 @@ namespace VRM.DAL.Repos
             _set = _context.Set<Test>();
         }
 
-        public async Task<IEnumerable<Test>> GetAll()
+        public IEnumerable<Test> GetAll()
         {
-            return await _set.ToListAsync();
+            return _set.ToList();
         }
 
         public Test GetById(string id)

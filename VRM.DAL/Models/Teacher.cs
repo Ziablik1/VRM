@@ -27,8 +27,6 @@ namespace VRM.DAL.Models
         public string Password { get; set; }
 
         public int AdminId { get; set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int TeacherId { get; set; }
         public ICollection<Test> Test { get; set; }
     }

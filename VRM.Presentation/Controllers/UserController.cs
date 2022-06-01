@@ -42,11 +42,24 @@ namespace VRM.Presentation.Controllers
             {
                 Id = u.Id,
                 Name = u.Name,
-                RoleName = "Some Role",
+                RoleName = "Role",
                 Email = u.Email
             }).ToList();
             return View(model);
         }
+        //public async Task<IActionResult> Index(string id)
+        //{
+        //    List<UserListViewModel> model = new List<UserListViewModel>();
+        //    User user = await userManager.FindByIdAsync(id);
+        //    model = userManager.Users.Select(u => new UserListViewModel
+        //    {
+        //        Id = u.Id,
+        //        Name = u.Name,
+        //        RoleName = roleManager.Roles.Single(r => r.Name == userManager.GetRolesAsync(user).Result.Single()).ToString(),
+        //        Email = u.Email
+        //    }).ToList();
+        //    return View(model);
+        //}
 
         [HttpGet]
         [AllowAnonymous]
@@ -65,8 +78,9 @@ namespace VRM.Presentation.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> AddUser(UserViewModel model)
         {
-            //if (ModelState.IsValid)
-            //{
+                //if (ModelState.IsValid)
+                //{
+
                 User user = new User
                 {
                     Name = model.Name,

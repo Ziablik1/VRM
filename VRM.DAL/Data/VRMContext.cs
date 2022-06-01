@@ -49,6 +49,7 @@ namespace VRM.DAL.Data
         //        {
         //            new Test
         //            {
+        //                TeachertId = 1,
         //                TestId = 1,
         //                Time = 15,
         //                Title = "Test1",
@@ -73,17 +74,17 @@ namespace VRM.DAL.Data
         //            },
         //        });
 
-            //modelBuilder.Entity<Test>()
-            //.HasMany(p => p.Questions);
+        //    //modelBuilder.Entity<Test>()
+        //    //.HasMany(p => p.Questions);
 
-            //modelBuilder.Entity<Test>()
-            //.HasMany(p => p.Students);
+        //    //modelBuilder.Entity<Test>()
+        //    //.HasMany(p => p.Students);
 
-            //modelBuilder.Entity<Teacher>()
-            //.HasMany(p => p.Tests);
+        //    //modelBuilder.Entity<Teacher>()
+        //    //.HasMany(p => p.Tests);
 
-            //modelBuilder.Entity<Question>()
-            //.HasMany(p => p.Answers);
+        //    //modelBuilder.Entity<Question>()
+        //    //.HasMany(p => p.Answers);
 
         //    base.OnModelCreating(modelBuilder);
         //}

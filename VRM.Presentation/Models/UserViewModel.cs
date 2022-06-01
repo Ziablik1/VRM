@@ -16,5 +16,6 @@
         public List<SelectListItem> ApplicationRoles { get; set; }
         [Display(Name = "Role")]
         public string ApplicationRoleId { get; set; }
+        public string RoleName { get; set; }
     }
 }
