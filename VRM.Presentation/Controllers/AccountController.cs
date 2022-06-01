@@ -30,11 +30,13 @@ namespace VRM.Presentation.Controllers
             var result = await signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
+                ViewBag.isLogged = true;
                 return RedirectToLocal("Home/Index");
             }
             else
             {
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                ViewBag.isLogged = false;
                 return View(model);
             }
 

@@ -13,15 +13,23 @@ namespace VRM.Presentation.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly UserManager<User> userManager;
 
-        public HomeController(UserManager<User> userManager, ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger)
         {
-            this.userManager = userManager;
             _logger = logger;
         }
+
         public IActionResult Index()
         {
+            bool isAdmin = User
+                .Identities.FirstOrDefault(i => i.AuthenticationType == "Identity.Application")
+                .Claims.Any(i => i.Value == "Admin");
+            ViewBag.isAdmin = isAdmin;
+            bool isStudent = User
+                .Identities.FirstOrDefault(i => i.AuthenticationType == "Identity.Application")
+                .Claims.Any(i => i.Value == "Student");
+            ViewBag.isStudent = isStudent;
+
             return View();
         }
 

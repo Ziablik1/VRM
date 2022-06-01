@@ -28,6 +28,10 @@ namespace VRM.Presentation.Controllers
                 RoleName = r.Name,
                 Id = r.Id,
             }).ToList();
+            bool isAdmin = User
+                .Identities.FirstOrDefault(i => i.AuthenticationType == "Identity.Application")
+                .Claims.Any(i => i.Value == "Admin");
+            ViewBag.isAdmin = isAdmin;
             return View(model);
         }
         public async Task<IActionResult> CreateOrEdit(string id)

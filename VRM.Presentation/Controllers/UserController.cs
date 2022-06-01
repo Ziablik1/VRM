@@ -45,6 +45,11 @@ namespace VRM.Presentation.Controllers
                 RoleName = "Role",
                 Email = u.Email
             }).ToList();
+            bool isAdmin = User
+                .Identities.FirstOrDefault(i => i.AuthenticationType == "Identity.Application")
+                .Claims.Any(i => i.Value == "Admin");
+            ViewBag.isAdmin = isAdmin;
+
             return View(model);
         }
         //public async Task<IActionResult> Index(string id)

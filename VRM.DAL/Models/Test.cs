@@ -23,7 +23,6 @@ namespace VRM.DAL.Models
         public DateTime Date { get; set; }
 
         public int Time { get; set; }
-        public int? TeachertId { get; set; }
         public Teacher Teacher { get; set; }
 
         public ICollection<Question> Question { get; set; }

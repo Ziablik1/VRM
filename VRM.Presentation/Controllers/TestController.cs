@@ -9,11 +9,23 @@ namespace VRM.Presentation.Controllers
         {
             testService = _testService;
         }
+        public IActionResult Test()
+        {
+            return View();
+        }
+
         public IActionResult Index()
         {
+            bool isStudent = User
+                .Identities.FirstOrDefault(i => i.AuthenticationType == "Identity.Application")
+                .Claims.Any(i => i.Value == "Student");
+            ViewBag.isStudent = isStudent;
+
             var model = testService.GetAll();
+
             return View(model);
         }
+
         public IActionResult Participate()
         {
             return View();
